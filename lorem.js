@@ -1,14 +1,15 @@
 var Lorem;
 (function() {
 
-    //Create a class named Lorem and constructor
+    // Create a class named Lorem and constructor
     Lorem = function() {
-        //Default values.
+        // Default values.
         this.type = null;
         this.query = null;
         this.data = null;
     };
-    //Static variables
+
+    // Static variables
     Lorem.IMAGE = 1;
     Lorem.TEXT = 2;
     Lorem.TYPE = {
@@ -16,31 +17,132 @@ var Lorem;
         SENTENCE: 2,
         WORD: 3
     };
-    //Words to create lorem ipsum text.
-    Lorem.WORDS = ["Hey dude,","Hey buddy,","Hey,","Great work team,","Way to go team,","Team incredible,","Team awesome,","nice","awesome","incredible","marvelous","stunning","unbelievable","wonderful","impressive","wonderous","good","great","killer","amazing","fantastic","magnificent","formidable","asonishingly great","excellent","fabulous","work","work","work","job","job","job","effort","performance","productivity","achievement","accomplishment","","really","very","incredibly","highly","overly","truly","outstandingly","super","extra","hugely","vastly","immensely","tremendously","work,","case","illustration","lesson","precident","symbol","representation","example","indication","unbelievable.","thanks for always helping me.","you are killing it!", "nice work.","thank you so much for the time you spent.","I cannot thank you enough for your support yesterday (and today) and for what you do everyday for me and many others.","you are ALWAYS there to help!","Thank you, Thank you, Thank you!","congratulations!", "you rock!","you are a workhorse.","awesome job.","great job.","way to set the bar high.", "I can't thank you enough.", "words don't properly express it.","thank you!","big props!","thanks for making my day.", "great job!", "thanks again.","you are so inspiring!", "things will only get better from here.", "thanks for doing what you do and doing it well.", "well done!", "keep it up!", "so happy that you are on the team.", "true A-Player spirit.","couldn't do it without you.","thanks for all your hard work.","you are a force to be reckoned with.","your contributions are greatly appreciated.","I appreciate the effort!","you went above and beyond.","you set the bar."];
 
-    //random integer method.
+    // Words to create lorem ipsum text.
+    Lorem.WORDS = [
+        "Hey dude,",
+        "Hey buddy,",
+        "Hey,",
+        "Great work team,",
+        "Way to go team,",
+        "Team incredible,",
+        "Team awesome,",
+        "nice",
+        "awesome",
+        "incredible",
+        "marvelous",
+        "stunning",
+        "unbelievable",
+        "wonderful",
+        "impressive",
+        "wonderous",
+        "good",
+        "great",
+        "killer",
+        "amazing",
+        "fantastic",
+        "magnificent",
+        "formidable",
+        "astonishingly",
+        "excellent",
+        "fabulous",
+        "work",
+        "job",
+        "effort",
+        "performance",
+        "productivity",
+        "achievement",
+        "accomplishment",
+        "really",
+        "very",
+        "incredibly",
+        "highly",
+        "overly",
+        "truly",
+        "outstandingly",
+        "super",
+        "extra",
+        "hugely",
+        "vastly",
+        "immensely",
+        "tremendously",
+        "work,",
+        "case",
+        "illustration",
+        "lesson",
+        "AMAZING",
+        "precident",
+        "symbol",
+        "representation",
+        "example",
+        "indication",
+        "WOW",
+        "!!!",
+        "unbelievable.",
+        "thanks for always helping me.",
+        "you are killing it!",
+        "nice work.",
+        "thank you so much for the time you spent.",
+        "I cannot thank you enough for your support yesterday (and today) and for what you do everyday for me and many others.",
+        "you are ALWAYS there to help!",
+        "congratulations!",
+        "you rock!",
+        "you are a workhorse.",
+        "awesome job.",
+        "way to set the bar high.",
+        "I can't thank you enough.",
+        "words don't properly express it.",
+        "thank you!",
+        "big props!",
+        "thanks for making my day.",
+        "great job!",
+        "thanks again.",
+        "you are so inspiring!",
+        "things will only get better from here.",
+        "thanks for doing what you do and doing it well.",
+        "well done!",
+        "keep it up!",
+        "so happy that you are on the team.",
+        "true A-Player spirit.",
+        "couldn't do it without you.",
+        "thanks for all your hard work.",
+        "you are a force to be reckoned with.",
+        "your contributions are greatly appreciated.",
+        "I appreciate the effort!",
+        "you went above and beyond.",
+        "you set the bar.",
+        "Congratulations!",
+        "Way to Go!",
+        "I'm so privileged to work with such a dedicated team.",
+        "What would we do without you?",
+        ":)",
+        "Keep up the great work",
+        "this is long over-due,",
+        "&mdash;"
+    ];
+
+    // random integer method.
     Lorem.prototype.randomInt = function (min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     };
 
-    //text creator method with parameters: how many, what
+    // text creator method with parameters: how many, what
     Lorem.prototype.createText = function(count, type) {
 
         switch (type) {
 
-            //paragraphs are loads of sentences.
+            // paragraphs are loads of sentences.
             case Lorem.TYPE.PARAGRAPH:
                 var paragraphs = new Array;
                 for (var i = 0; i < count; i++) {
-                    var paragraphLength = this.randomInt(10, 20);
+                    var paragraphLength = this.randomInt(3, 5);
                     var paragraph = this.createText(paragraphLength, Lorem.TYPE.SENTENCE);
                     paragraphs.push('<p>'+paragraph+'</p>');
                 }
                 return paragraphs.join('\n');
                 break;
 
-            //sentences are loads of words.
+            // sentences are loads of words.
             case Lorem.TYPE.SENTENCE:
                 var sentences = new Array;
                 for (var i = 0; i < count; i++) {
@@ -48,17 +150,21 @@ var Lorem;
                     var words = this.createText(sentenceLength, Lorem.TYPE.WORD).split(' ');
                     words[0] = words[0].substr(0, 1).toUpperCase() + words[0].substr(1);
                     var sentence = words.join(' ');
-
                     sentences.push(sentence);
                 }
                 return (sentences.join('. ') + '.').replace(/(\.\,|\,\.)/g, '.');
                 break;
 
-            //words are words
+            // words are words
             case Lorem.TYPE.WORD:
-                var wordIndex = this.randomInt(0, Lorem.WORDS.length - count - 1);
+                var words = new Array;
+                for (var i = 0; i < count; i++) {
+                    var wordIndex = this.randomInt(0, Lorem.WORDS.length - 1);
+                    var word = Lorem.WORDS[wordIndex];
+                    words.push(word);
+                }
 
-                return Lorem.WORDS.slice(wordIndex, wordIndex + count).join(' ').replace(/\.|\,/g, '');
+                return words.join(' ').replace(/\.|\,/g, '');
                 break;
         }
     };
@@ -76,11 +182,9 @@ var Lorem;
         
         if (/\d+p/.test(this.query)) {
             var type = Lorem.TYPE.PARAGRAPH;
-        }
-        else if (/\d+s/.test(this.query)) {
+        } else if (/\d+s/.test(this.query)) {
             var type = Lorem.TYPE.SENTENCE;
-        }
-        else if (/\d+w/.test(this.query)) {
+        } else if (/\d+w/.test(this.query)) {
             var type = Lorem.TYPE.WORD;
         }
 
@@ -105,7 +209,7 @@ var Lorem;
                 $(this).each(function() {
                     var lorem = new Lorem;
                     lorem.type = $(this).is('img') ? Lorem.IMAGE : Lorem.TEXT;
-                    
+
                     //data-lorem can be taken with data function (thanks to http://forrst.com/people/webking)
                     lorem.query = $(this).data('lorem');
                     lorem.createLorem(this);
