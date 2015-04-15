@@ -3,6 +3,11 @@ Lorem.js Dummy Text/Image Generator jQuery and Native JS
 A Lorem Ipsum creator service written on JavaScript.
 
 
+Demo
+-------------
+[Github page](http://dhunten.github.io/loremjs/)
+
+
 Implementation
 --------------
 
@@ -34,18 +39,6 @@ Lorem.js has a simple query language: "how many?, what?"
 
 That's it.
 
-Dummy Images
-------------
-
-And Lorem.js uses lorempixum.com for images for now.
-
-Usage:
-
-    <img src="" data-lorem="sports/1/Test message" width="223" height="223">
-    <img src="" data-lorem="gray" width="100" height="124">
-    <img src="" data-lorem="gray animals" width="100" height="124">
-
-And watch what happens :)
 
 Native JavaScript (without any framework)
 ----------------------------------------
